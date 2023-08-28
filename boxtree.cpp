@@ -82,7 +82,10 @@ int BoxTree::getRange(int start, int stop, Box **range)
   return 0;
 }
 
-void BoxTree::inorder()
+void BoxTree::printLeaves()
 {
-  inorder(root);
+  if (root != nullptr)
+  {
+    return;
+  }
 }

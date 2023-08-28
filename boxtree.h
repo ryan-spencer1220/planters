@@ -20,4 +20,5 @@ public:
   void insert(Box *box);
   void remove(int num);
   int getRange(int start, int stop, Box **range);
+  void printLeaves();
 };
