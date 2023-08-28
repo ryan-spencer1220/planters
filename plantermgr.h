@@ -1,9 +1,12 @@
+#include "boxtree.h"
 #include <iostream>
 using namespace std;
 
 class PlanterMgr
 {
 private:
+  BoxTree boxTree;
+
 public:
   PlanterMgr();
   ~PlanterMgr();
