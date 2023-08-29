@@ -1,4 +1,8 @@
 #include "box.h"
+#include "boxlist.h"
+#include <iostream>
+
+using namespace std;
 
 class BoxTree
 {
@@ -17,8 +21,10 @@ public:
   ~BoxTree();
   void operator=(const BoxTree &boxTree);
   void inorder();
-  void insert(Box *box);
+  bool insert(Box box);
   void remove(int num);
-  int getRange(int start, int stop, Box **range);
-  void printLeaves();
+  // BoxList getRange(int start, int stop);
+  void printLeaves(Node *root);
+  int getHeight(Node *root);
+  Node *getRoot();
 };

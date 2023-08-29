@@ -37,8 +37,10 @@ void runTest(const int numValues, const int *values, const int numRemoveValues, 
     }
   }
 
+  cout << "Height: " << bt.getHeight(bt.getRoot()) << endl;
+
   cout << "Leaves:" << endl;
-  bt.printLeaves();
+  bt.printLeaves(bt.getRoot());
   cout << endl;
 }
 

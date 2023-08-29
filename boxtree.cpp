@@ -29,46 +29,61 @@ void BoxTree::operator=(const BoxTree &boxTree)
   root->right = boxTree.root->right;
 }
 
-void BoxTree::insert(Box *box)
+void BoxTree::inorder()
 {
-  Node *node = new Node;
-  node->box = box;
-  node->left = nullptr;
-  node->right = nullptr;
+  if (root != nullptr)
+  {
+    return;
+  }
+  Node *current = root;
+  Node *parent = nullptr;
+  while (current)
+  {
+    parent = current;
+    if (current->left != nullptr)
+    {
+      current = current->left;
+    }
+    else if (current->right != nullptr)
+    {
+      current = current->right;
+    }
+    else
+    {
+      current = parent;
+    }
+  }
+}
 
+bool BoxTree::insert(Box box)
+{
+  Node *newNode = new Node();
+  newNode->box = &box;
   if (root == nullptr)
   {
-    root = node;
+    root = newNode;
+    return true;
   }
-  else
+  Node *temp = root;
+  while (true)
   {
-    Node *current = root;
-    Node *parent = nullptr;
-
-    while (true)
+    if (newNode->box < temp->box)
     {
-      parent = current;
-
-      if (box->getNum() < current->box->getNum())
+      if (temp->left == nullptr)
       {
-        current = current->left;
-
-        if (current == nullptr)
-        {
-          parent->left = node;
-          break;
-        }
+        temp->left = newNode;
+        return true;
       }
-      else
+      temp = temp->left;
+    }
+    else
+    {
+      if (temp->right == nullptr)
       {
-        current = current->right;
-
-        if (current == nullptr)
-        {
-          parent->right = node;
-          break;
-        }
+        temp->right = newNode;
+        return true;
       }
+      temp = temp->right;
     }
   }
 }
@@ -77,15 +92,39 @@ void BoxTree::remove(int num)
 {
 }
 
-int BoxTree::getRange(int start, int stop, Box **range)
-{
-  return 0;
-}
+// BoxList BoxTree::getRange(int start, int stop)
+// {
+//   BoxList boxList;
+//   return boxList;
+// }
 
-void BoxTree::printLeaves()
+void BoxTree::printLeaves(Node *root)
 {
-  if (root != nullptr)
+  if (root == NULL)
   {
     return;
   }
+
+  // Print left subtree
+  printLeaves(root->left);
+
+  // Print root node
+  cout << root->box->getNum() << " ";
+
+  // Print right subtree
+  printLeaves(root->right);
+}
+
+int BoxTree::getHeight(Node *root)
+{
+  if (root == nullptr)
+  {
+    return 0;
+  }
+  return 1 + getHeight(root->left) + getHeight(root->right);
+}
+
+BoxTree::Node *BoxTree::getRoot()
+{
+  return root;
 }
