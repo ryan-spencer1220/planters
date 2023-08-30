@@ -14,7 +14,8 @@ void runTest(const int numValues, const int *values, const int numRemoveValues, 
 
   for (int i = 0; i < numValues; i++)
   {
-    bt.insert(Box(values[i], "b"));
+    Box b(values[i], "test");
+    bt.insert(b);
   }
 
   bt.inorder();
@@ -37,10 +38,7 @@ void runTest(const int numValues, const int *values, const int numRemoveValues, 
     }
   }
 
-  cout << "Height: " << bt.getHeight(bt.getRoot()) << endl;
-
-  cout << "Leaves:" << endl;
-  bt.printLeaves(bt.getRoot());
+  bt.printLeaves(bt.getRoot(), 0);
   cout << endl;
 }
 

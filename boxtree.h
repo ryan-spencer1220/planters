@@ -21,10 +21,12 @@ public:
   ~BoxTree();
   void operator=(const BoxTree &boxTree);
   void inorder();
-  bool insert(Box box);
+  void insert(Box &box);
+  void insert(Node *&root, Box &box);
   void remove(int num);
   // BoxList getRange(int start, int stop);
-  void printLeaves(Node *root);
   int getHeight(Node *root);
   Node *getRoot();
+  void printLevelSpacers(int spacers);
+  void printLeaves(Node *root, int level);
 };

@@ -31,60 +31,56 @@ void BoxTree::operator=(const BoxTree &boxTree)
 
 void BoxTree::inorder()
 {
-  if (root != nullptr)
-  {
-    return;
-  }
-  Node *current = root;
-  Node *parent = nullptr;
-  while (current)
-  {
-    parent = current;
-    if (current->left != nullptr)
-    {
-      current = current->left;
-    }
-    else if (current->right != nullptr)
-    {
-      current = current->right;
-    }
-    else
-    {
-      current = parent;
-    }
-  }
+  // if (root != nullptr)
+  // {
+  //   return;
+  // }
+  // Node *current = root;
+  // Node *parent = nullptr;
+  // while (current)
+  // {
+  //   parent = current;
+  //   if (current->left != nullptr)
+  //   {
+  //     current = current->left;
+  //   }
+  //   else if (current->right != nullptr)
+  //   {
+  //     current = current->right;
+  //   }
+  //   else
+  //   {
+  //     current = parent;
+  //   }
+  // }
 }
 
-bool BoxTree::insert(Box box)
+void BoxTree::insert(Box &box)
 {
-  Node *newNode = new Node();
-  newNode->box = &box;
-  if (root == nullptr)
+  insert(root, box);
+}
+
+void BoxTree::insert(Node *&root, Box &box)
+{
+  if (root)
   {
-    root = newNode;
-    return true;
+    cout << root->box->getNum() << endl;
   }
-  Node *temp = root;
-  while (true)
+  if (!root)
   {
-    if (newNode->box < temp->box)
-    {
-      if (temp->left == nullptr)
-      {
-        temp->left = newNode;
-        return true;
-      }
-      temp = temp->left;
-    }
-    else
-    {
-      if (temp->right == nullptr)
-      {
-        temp->right = newNode;
-        return true;
-      }
-      temp = temp->right;
-    }
+    root = new Node;
+    root->box = &box;
+    root->left = nullptr;
+    root->right = nullptr;
+    return;
+  }
+  else if (box.getNum() < root->box->getNum())
+  {
+    insert(root->left, box);
+  }
+  else if (box.getNum() >= root->box->getNum())
+  {
+    insert(root->right, box);
   }
 }
 
@@ -98,21 +94,38 @@ void BoxTree::remove(int num)
 //   return boxList;
 // }
 
-void BoxTree::printLeaves(Node *root)
+void BoxTree::printLevelSpacers(int spacers)
 {
-  if (root == NULL)
+  for (int i = 0; i < spacers; i++)
+    cout << "  ";
+}
+
+void BoxTree::printLeaves(Node *root, int level)
+{
+  if (root)
   {
-    return;
+    printLevelSpacers(level - 1);
+    if (level)
+      cout << "|-";
+    cout << root->box->getNum() << endl;
+    if (root->left || root->right)
+    {
+      if (root->left)
+        printLeaves(root->left, level + 1);
+      else
+      {
+        printLevelSpacers(level);
+        cout << '|' << endl;
+      }
+      if (root->right)
+        printLeaves(root->right, level + 1);
+      else
+      {
+        printLevelSpacers(level);
+        cout << '|' << endl;
+      }
+    }
   }
-
-  // Print left subtree
-  printLeaves(root->left);
-
-  // Print root node
-  cout << root->box->getNum() << " ";
-
-  // Print right subtree
-  printLeaves(root->right);
 }
 
 int BoxTree::getHeight(Node *root)
