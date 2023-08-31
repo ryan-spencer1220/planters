@@ -10,13 +10,15 @@ private:
   };
   Node *head;
   Node *tail;
+  Node *mCurrent;
 
 public:
   BoxList();
   BoxList(const BoxList &boxList);
   ~BoxList();
   void operator=(const BoxList &boxList);
-  void insert(Box box);
-  void remove(int num);
-  void print();
+  void insertAtTail(Box &box);
+  void startIterating();
+  const Box &getNextBox();
+  bool hasNextBox();
 };

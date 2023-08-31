@@ -387,7 +387,7 @@ Task 6: Implement the BoxTree::remove method (2 hr)
     pruning messages now. You should make sure that it runs without any memory
     errors or leaks.
 
-Task 7: Implement the BoxList (2 hr)
+Task 7: Implement the BoxList (2 hr) 
 
     The objective of this task is to implement the BoxList class.
 
