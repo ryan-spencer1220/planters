@@ -86,3 +86,8 @@ bool BoxList::hasNextBox()
 {
   return mCurrent != nullptr;
 }
+
+BoxList getRange(const int start, const int stop)
+{
+  BoxList boxList;
+}

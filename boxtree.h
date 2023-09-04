@@ -21,6 +21,8 @@ public:
   bool remove(TreeNode *&root, int num);
   void deleteNode(TreeNode *&target);
   int getHeight(TreeNode *root);
+  BoxList getRange(const int start, const int stop);
+  BoxList getRange(TreeNode *root, const int start, const int stop, BoxList &boxList);
   void printLevelSpacers(int spacers);
   void printLeaves(TreeNode *root, int level);
   TreeNode *getRoot();

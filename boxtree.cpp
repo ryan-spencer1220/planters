@@ -123,12 +123,6 @@ void BoxTree::deleteNode(TreeNode *&target)
   }
 }
 
-// BoxList BoxTree::getRange(int start, int stop)
-// {
-//   BoxList boxList;
-//   return boxList;
-// }
-
 void BoxTree::printLevelSpacers(int spacers)
 {
   for (int i = 0; i < spacers; i++)
@@ -175,4 +169,32 @@ int BoxTree::getHeight(TreeNode *root)
 TreeNode *BoxTree::getRoot()
 {
   return root;
+}
+
+BoxList BoxTree::getRange(const int start, const int stop)
+{
+  BoxList boxList;
+  boxList = getRange(root, start, stop, boxList);
+  return boxList;
+}
+
+BoxList BoxTree::getRange(TreeNode *root, const int start, const int stop, BoxList &boxList)
+{
+  if (root == nullptr)
+  {
+    return boxList;
+  }
+  if (root->box.getNum() >= start && root->box.getNum() <= stop)
+  {
+    boxList.insertAtTail(root->box);
+  }
+  if (root->box.getNum() > start)
+  {
+    boxList = getRange(root->left, start, stop, boxList);
+  }
+  if (root->box.getNum() < stop)
+  {
+    boxList = getRange(root->right, start, stop, boxList);
+  }
+  return boxList;
 }

@@ -1,4 +1,5 @@
 #include "boxtree.h"
+#include "box.h"
 #include <iostream>
 using namespace std;
 

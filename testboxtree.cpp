@@ -14,7 +14,8 @@ void runTest(const int numValues, const int *values, const int numRemoveValues, 
 
   for (int i = 0; i < numValues; i++)
   {
-    Box b(values[i], "test");
+    char str[10] = "test";
+    Box b(values[i], str);
     bt.insert(b);
   }
 
