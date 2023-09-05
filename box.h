@@ -11,11 +11,14 @@ private:
   char *plantName;
 
 public:
+  // constructors & destructor
   Box();
+  Box(const Box &box);
   Box(int num, char *plantName);
   ~Box();
-  Box(const Box &box);
+  // copy constructor
   void operator=(const Box &box);
+  // getters
   int getNum();
   char *getPlantName();
 };

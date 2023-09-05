@@ -57,30 +57,35 @@ bool BoxTree::remove(int num)
 
 bool BoxTree::remove(TreeNode *&root, int num)
 {
-  if (!root)
-    return false;
-  else if (num == root->box.getNum())
+  bool flag = false;
+  if (root)
   {
-    deleteNode(root);
-    return true;
+    if (num == root->box.getNum())
+    {
+      deleteNode(root);
+      flag = true;
+    }
+    else if (num < root->box.getNum())
+    {
+      flag = remove(root->left, num);
+    }
+    else
+    {
+      flag = remove(root->right, num);
+    }
   }
-  else if (num < root->box.getNum())
-    return remove(root->left, num);
-  else
-    return remove(root->right, num);
+  return flag;
 }
 
 void BoxTree::deleteNode(TreeNode *&target)
 {
   TreeNode *temp;
 
-  // a leaf
   if (!target->left && !target->right)
   {
     delete target;
     target = NULL;
   }
-  // no left child
   else if (!target->left)
   {
     temp = target;
@@ -88,7 +93,6 @@ void BoxTree::deleteNode(TreeNode *&target)
     temp->right = NULL;
     delete temp;
   }
-  // no right child
   else if (!target->right)
   {
     temp = target;
@@ -96,10 +100,8 @@ void BoxTree::deleteNode(TreeNode *&target)
     temp->left = NULL;
     delete temp;
   }
-  // two children
   else
   {
-    // find the inorder successor
     TreeNode *prev = NULL;
     TreeNode *curr = target->right;
     while (curr->left)
@@ -108,93 +110,40 @@ void BoxTree::deleteNode(TreeNode *&target)
       curr = curr->left;
     }
 
-    // copy data at curr (the inorder successor) into target
     target->box = curr->box;
 
-    // disconnect curr (the inorder successor)
     if (!prev)
       target->right = curr->right;
     else
-      prev->left = curr->right; // the inorder successor could have a right child
+      prev->left = curr->right;
 
-    // delete curr (the inorder successor)
     curr->right = NULL;
     delete curr;
   }
 }
 
-void BoxTree::printLevelSpacers(int spacers)
-{
-  for (int i = 0; i < spacers; i++)
-    cout << "  ";
-}
-
-void BoxTree::printLeaves(TreeNode *root, int level)
-{
-  if (root)
-  {
-    printLevelSpacers(level - 1);
-    if (level)
-      cout << "|-";
-    cout << root->box.getNum() << endl;
-    if (root->left || root->right)
-    {
-      if (root->left)
-        printLeaves(root->left, level + 1);
-      else
-      {
-        printLevelSpacers(level);
-        cout << '|' << endl;
-      }
-      if (root->right)
-        printLeaves(root->right, level + 1);
-      else
-      {
-        printLevelSpacers(level);
-        cout << '|' << endl;
-      }
-    }
-  }
-}
-
-int BoxTree::getHeight(TreeNode *root)
-{
-  if (root == nullptr)
-  {
-    return 0;
-  }
-  return 1 + getHeight(root->left) + getHeight(root->right);
-}
-
-TreeNode *BoxTree::getRoot()
-{
-  return root;
-}
-
 BoxList BoxTree::getRange(const int start, const int stop)
 {
   BoxList boxList;
-  boxList = getRange(root, start, stop, boxList);
+  getRange(root, start, stop, boxList);
   return boxList;
 }
 
-BoxList BoxTree::getRange(TreeNode *root, const int start, const int stop, BoxList &boxList)
+void BoxTree::getRange(TreeNode *root, const int start, const int stop, BoxList &boxList)
 {
-  if (root == nullptr)
+  if (root)
   {
-    return boxList;
+    if (root->box.getNum() > start)
+    {
+      getRange(root->left, start, stop, boxList);
+    }
+    if (root->box.getNum() >= start && root->box.getNum() <= stop)
+    {
+      boxList.insertAtTail(root->box);
+    }
+    if (root->box.getNum() < stop)
+    {
+      getRange(root->right, start, stop, boxList);
+    }
   }
-  if (root->box.getNum() >= start && root->box.getNum() <= stop)
-  {
-    boxList.insertAtTail(root->box);
-  }
-  if (root->box.getNum() > start)
-  {
-    boxList = getRange(root->left, start, stop, boxList);
-  }
-  if (root->box.getNum() < stop)
-  {
-    boxList = getRange(root->right, start, stop, boxList);
-  }
-  return boxList;
 }

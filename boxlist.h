@@ -11,14 +11,20 @@ private:
   Node *head;
   Node *tail;
   Node *mCurrent;
+  int mSize;
 
 public:
+  // constructors & destructor
   BoxList();
   BoxList(const BoxList &boxList);
   ~BoxList();
+
+  // copy constructor
   void operator=(const BoxList &boxList);
+
+  // insert and iterator functions
   void insertAtTail(Box &box);
   void startIterating();
-  const Box &getNextBox();
+  Box &getNextBox();
   bool hasNextBox();
 };

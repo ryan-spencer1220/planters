@@ -55,7 +55,7 @@ void BoxList::operator=(const BoxList &boxList)
 
 void BoxList::insertAtTail(Box &box)
 {
-  Node *newNode = new Node;
+  Node *newNode = new Node();
   newNode->box = new Box(box);
   newNode->next = nullptr;
   if (head == nullptr)
@@ -75,7 +75,7 @@ void BoxList::startIterating()
   mCurrent = head;
 }
 
-const Box &BoxList::getNextBox()
+Box &BoxList::getNextBox()
 {
   Box *box = mCurrent->box;
   mCurrent = mCurrent->next;
@@ -85,9 +85,4 @@ const Box &BoxList::getNextBox()
 bool BoxList::hasNextBox()
 {
   return mCurrent != nullptr;
-}
-
-BoxList getRange(const int start, const int stop)
-{
-  BoxList boxList;
 }

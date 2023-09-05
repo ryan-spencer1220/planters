@@ -137,8 +137,6 @@ int main(int argc, char **argv)
         case PRUNING:
           prune(planterMgr, line);
           break;
-        case NONE:
-          break;
         }
       }
     }

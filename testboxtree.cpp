@@ -39,7 +39,6 @@ void runTest(const int numValues, const int *values, const int numRemoveValues, 
     }
   }
 
-  bt.printLeaves(bt.getRoot(), 0);
   cout << endl;
 }
 

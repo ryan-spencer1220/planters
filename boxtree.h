@@ -11,19 +11,22 @@ private:
   TreeNode *root;
 
 public:
+  // constructors & destructor
   BoxTree();
   BoxTree(const BoxTree &boxTree);
   ~BoxTree();
+
+  // copy constructor
   void operator=(const BoxTree &boxTree);
+
+  // insert and remove functions
   void insert(Box &box);
   void insert(TreeNode *&root, Box &box);
   bool remove(int num);
   bool remove(TreeNode *&root, int num);
   void deleteNode(TreeNode *&target);
-  int getHeight(TreeNode *root);
+
+  // getRange functions
   BoxList getRange(const int start, const int stop);
-  BoxList getRange(TreeNode *root, const int start, const int stop, BoxList &boxList);
-  void printLevelSpacers(int spacers);
-  void printLeaves(TreeNode *root, int level);
-  TreeNode *getRoot();
+  void getRange(TreeNode *root, const int start, const int stop, BoxList &boxList);
 };
